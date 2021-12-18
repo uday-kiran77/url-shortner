@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Url Shortner</title>
+
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <style>
+      .input-group {
+        padding: 1em;
+      }
+      section {
+        margin: 0 auto;
+        width: 95%;
+        max-width: 600px;
+      }
+      footer {
+        border-top: 1px #ececec solid;
+        margin: 1em;
+        padding: 0.5em;
+      }
+      #url {
+        font-size: 15px;
+      }
+      button {
+        transition: all 0.1s ease;
+      }
+      .url button {
+        outline: none !important;
+        box-shadow: none !important;
+        padding: 10px 20px !important;
+        margin: 10px 5px;
+      }
+      #shorturl {
+        background-color: #fff;
+        font-size: 15px;
+        cursor: text;
+      }
+      .url {
+        text-align: center;
+      }
+      .url h5 {
+        font-size: 16px;
+      }
+      .url h5 a {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="page-header text-center">
+      <h1>URL Shortener</h1>
+      <small></small>
+    </header>
+    <section>
+      <form id="form" action="/" method="POST">
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Paste url here to make it short"
+            id="url"
+            name="url"
+          />
+          <span class="input-group-btn">
+            <button class="btn btn-primary" type="submit" id="short-btn">
+              <i class="fa-solid fa-arrow-right"></i>&nbsp;Make It Short&nbsp;<i
+                class="fa-solid fa-arrow-left"
+              ></i>
+            </button>
+          </span>
+        </div>
+      </form>
+      <% if (shortUrl) { %>
+      <div class="url">
+        <h5>Your URL : <a href="<%=url%>" target="_blank"><%=url%></a></h5>
+        <h5>
+          Short URL :
+          <a href="<%=shortUrl%>" id="shorturl" target="_blank"
+            ><%=shortUrl%></a
+          >
+        </h5>
+        <button class="btn btn-default" type="button" id="copy-btn">
+          Copy <i class="fa-regular fa-copy"></i>
+        </button>
+
+        <a href="<%=shortUrl%>" target="_blank">
+          <button class="btn btn-default" type="button" id="copy-btn">
+            Open <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </button>
+        </a>
+      </div>
+      <% } %>
+    </section>
+
+    <script>
+      const copyBtn = document.querySelector("#copy-btn");
+      if (copyBtn) {
+        const shortURL = document.querySelector("#shorturl").innerText;
+        copyBtn.addEventListener("click", () => {
+          if (shortURL.length === 0) {
+            return false;
+          }
+          navigator.clipboard.writeText(shortURL).then(
+            function () {
+              copyBtn.innerHTML = "Copied &#128077;";
+            },
+            function (err) {
+              console.error(" Could not copy text: ", err);
+            }
+          );
+        });
+      }
+    </script>
+  </body>
+</html>
