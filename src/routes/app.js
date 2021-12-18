@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 var randomstring = require("randomstring");
-const appBaseUrl = "http://localhost:3000/";
+const appBaseUrl = process.env.appBaseUrl;
 
 require("../db/mongoose");
 
